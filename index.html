@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResQFly - AI-Powered Disaster Response Drone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --emergency-red: #E63946;
+            --professional-blue: #1D3557;
+            --clean-white: #F1FAEE;
+            --success-green: #2A9D8F;
+            --warning-orange: #F4A261;
+            --tech-purple: #6D6875;
+            --dark-blue: #457B9D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--clean-white);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--professional-blue), var(--dark-blue));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo i {
+            color: var(--emergency-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--warning-orange);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(29, 53, 87, 0.9), rgba(69, 123, 157, 0.8)), url('https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-4.0.3') center/cover;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--emergency-red);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        .cta-button:hover {
+            background-color: #c1121f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--professional-blue);
+            font-size: 2.5rem;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-header {
+            background-color: var(--professional-blue);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body ul {
+            list-style-type: none;
+        }
+
+        .card-body li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card-body li:before {
+            content: "✓";
+            color: var(--success-green);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            background-color: #f8f9fa;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--dark-blue);
+        }
+
+        .tech-item i {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Metrics */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .metric {
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--emergency-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--professional-blue);
+            font-weight: 500;
+        }
+
+        /* Workflow */
+        .workflow {
+            background-color: #f8f9fa;
+        }
+
+        .workflow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            counter-reset: step;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            text-align: center;
+        }
+
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--emergency-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--professional-blue);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-helicopter"></i>
+                    <span>ResQFly</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#solution">Solution</a>
+                    <a href="#technology">Technology</a>
+                    <a href="#feasibility">Feasibility</a>
+                    <a href="#impact">Impact</a>
+                    <a href="#research">Research</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>ResQFly: AI-Powered Disaster Response</h1>
+            <p>The First Intelligent Airlift Platform for Emergency Situations</p>
+            <a href="#solution" class="cta-button">Explore Our Solution</a>
+        </div>
+    </section>
+
+    <!-- Proposed Solution -->
+    <section id="solution">
+        <div class="container">
+            <h2 class="section-title">Proposed Solution</h2>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>The First Intelligent Airlift Platform</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>ResQFly delivers critical medical supplies and communication devices to inaccessible disaster zones, bridging the crucial gap between disaster onset and ground team arrival.</p>
+                        <ul>
+                            <li>AI-Powered Navigation with obstacle avoidance</li>
+                            <li>5kg payload capacity for essential supplies</li>
+                            <li>Opportunistic survivor detection during missions</li>
+                            <li>Real-time coordination dashboard</li>
+                            <li>Works in communication-degraded environments</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Key Differentiators</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>20% faster response time in inaccessible regions</li>
+                            <li>No ground infrastructure required</li>
+                            <li>25+ minutes flight time with full payload</li>
+                            <li>All-weather, day-night capability</li>
+                            <li>90% cheaper than helicopter operations</li>
+                            <li>Ready to fly in under 5 minutes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Approach -->
+    <section id="technology" class="tech-stack">
+        <div class="container">
+            <h2 class="section-title">Technical Approach</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Hardware Stack</h3>
+                    <p>Tarot T960 Hexacopter, NVIDIA Jetson Orin Nano, Bharat FC700 Flight Controller, Dual communication links</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI & Software Stack</h3>
+                    <p>YOLOv8 + TensorRT, Visual SLAM, Artificial Potential Fields, Custom CNN for landing</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Communication</h3>
+                    <p>4G/LTE + 900MHz Telemetry redundancy, MQTT protocol, Cloud-based dashboard</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 3rem; text-align: center; color: var(--professional-blue);">Technical Workflow</h3>
+            <div class="workflow-steps">
+                <div class="step">
+                    <h4>Request</h4>
+                    <p>Medic requests supplies via mobile app</p>
+                </div>
+                <div class="step">
+                    <h4>Dispatch</h4>
+                    <p>Cloud server assigns optimal drone</p>
+                </div>
+                <div class="step">
+                    <h4>Navigate</h4>
+                    <p>AI avoids obstacles, finds optimal path</p>
+                </div>
+                <div class="step">
+                    <h4>Detect</h4>
+                    <p>Opportunistic human detection during transit</p>
+                </div>
+                <div class="step">
+                    <h4>Deliver</h4>
+                    <p>Precision payload release at destination</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feasibility and Viability -->
+    <section id="feasibility">
+        <div class="container">
+            <h2 class="section-title">Feasibility & Viability</h2>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Technical Feasibility</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>All hardware components are commercially available</li>
+                            <li>Open-source software (ArduPilot, ROS 2, PX4)</li>
+                            <li>Well-established AI algorithms (YOLOv8, SLAM)</li>
+                            <li>Dual communication links for redundancy</li>
+                            <li>Hexacopter safety with motor failure redundancy</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Economic Viability</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Cost per Unit: ~$3,500 (vs. $50k+ commercial drones)</li>
+                            <li>High ROI: One mission can save multiple lives</li>
+                            <li>Scalable fleet management</li>
+                            <li>Modular design with swappable components</li>
+                            <li>Low operational costs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impacts and Benefits -->
+    <section id="impact" class="workflow">
+        <div class="container">
+            <h2 class="section-title">Impacts and Benefits</h2>
+            
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">20%</div>
+                    <div class="metric-label">Faster Response Time</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">5kg</div>
+                    <div class="metric-label">Payload Capacity</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">20min</div>
+                    <div class="metric-label">Flight Time</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">15km</div>
+                    <div class="metric-label">Operational Radius</div>
+                </div>
+            </div>
+            
+            <div class="card-container" style="margin-top: 3rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Humanitarian Benefits</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Immediate medical aid delivery</li>
+                            <li>Communication restoration</li>
+                            <li>Real-time situational awareness</li>
+                            <li>Autonomous survivor location</li>
+                            <li>Risk reduction for human responders</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Strategic Advantages</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>First responder multiplication</li>
+                            <li>No human pilot endangerment</li>
+                            <li>Cost efficiency vs. helicopters</li>
+                            <li>Rapid deployment capability</li>
+                            <li>24/7 all-weather operation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research -->
+    <section id="research">
+        <div class="container">
+            <h2 class="section-title">Research & Development</h2>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Technical Innovation</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Edge-AI Optimization with TensorRT</li>
+                            <li>Advanced Sensor Fusion techniques</li>
+                            <li>Multi-layer Fail-Safe Architecture</li>
+                            <li>Offline operational capability</li>
+                            <li>Real-time path planning algorithms</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Validation Methodology</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Simulation Testing in Gazebo environments</li>
+                            <li>Field Trials with disaster management agencies</li>
+                            <li>Performance metrics tracking</li>
+                            <li>Obstacle avoidance reliability testing</li>
+                            <li>Delivery success rate analysis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem; text-align: center;">
+                <h3 style="color: var(--professional-blue); margin-bottom: 1rem;">Development Roadmap</h3>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <div style="background: var(--success-green); color: white; padding: 1rem; border-radius: 8px; min-width: 200px;">
+                        <h4>Phase 1</h4>
+                        <p>Prototype Validation (Current)</p>
+                    </div>
+                    <div style="background: var(--warning-orange); color: white; padding: 1rem; border-radius: 8px; min-width: 200px;">
+                        <h4>Phase 2</h4>
+                        <p>Multi-Drone Coordination</p>
+                    </div>
+                    <div style="background: var(--dark-blue); color: white; padding: 1rem; border-radius: 8px; min-width: 200px;">
+                        <h4>Phase 3</h4>
+                        <p>Emergency Network Integration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-helicopter"></i>
+                    <span>ResQFly</span>
+                </div>
+                <p>When disasters strike and every second counts, ResQFly ensures help arrives first.</p>
+                <div class="contact-info">
+                    <div>
+                        <i class="fas fa-envelope"></i>
+                        <span>contact@resqfly.org</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Prototype Ready: Q4 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.card, .tech-item, .metric, .step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
